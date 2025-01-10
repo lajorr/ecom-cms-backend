@@ -15,3 +15,6 @@ router.route('/')
 router.route('/:id')
     .delete(handleDeleteCategoryById)
     .patch(handleUpdateCategoryById);
+
+
+export default router;

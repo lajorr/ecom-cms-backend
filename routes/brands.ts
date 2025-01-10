@@ -17,3 +17,6 @@ router.route('/:id')
     .delete(handleDeleteBrandById)
     .patch(handleUpdateBrandById);
 
+
+
+export default router;

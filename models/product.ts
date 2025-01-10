@@ -2,7 +2,7 @@ import { model, Schema } from "mongoose";
 import { IBrand } from "./brand";
 import { ICategory } from "./category";
 
-interface IProduct {
+export interface IProduct {
     name: string,
     brand: IBrand,
     category: ICategory,

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon index.ts"
   },
   "author": "",
   "license": "ISC",
@@ -12,11 +12,12 @@
     "@types/express": "^5.0.0",
     "@types/mongoose": "^5.11.96",
     "express": "^4.21.2",
-    "mongoose": "^8.9.3"
+    "mongoose": "^8.9.3",
+    "ts-node": "^10.9.2"
   },
   "devDependencies": {
-    "nodemon": "^3.1.9",
     "@types/node": "^22.10.5",
+    "nodemon": "^3.1.9",
     "typescript": "^5.7.3"
   }
 }
