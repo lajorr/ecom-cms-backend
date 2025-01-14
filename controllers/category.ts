@@ -34,10 +34,19 @@ const handleCreateCategory = async (req: Request, res: Response) => {
 }
 
 const handleDeleteCategoryById = async (req: Request, res: Response) => {
-    const categoryId = req.params.categoryId;
-    await Category.findByIdAndDelete(categoryId)
-    res.status(200)
-        .json({ msg: `category ${categoryId} has been deleted` })
+    try {
+        const categoryId = req.params.id;
+        const result = await Category.findByIdAndDelete(categoryId)
+        if (result === null) {
+            res.status(400).json({ msg: 'No category found' });
+            return
+        }
+        res.status(200)
+            .json({ msg: `category ${categoryId} has been deleted` })
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ msg: 'Internal server error' });
+    }
 }
 
 const handleUpdateCategoryById = async (req: Request, res: Response) => {

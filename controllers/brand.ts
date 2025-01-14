@@ -34,10 +34,20 @@ const handleGetBrandById = async (req: Request, res: Response) => {
 }
 
 const handleDeleteBrandById = async (req: Request, res: Response) => {
-    const brandId = req.params.brandId;
-    await Brand.findByIdAndDelete(brandId)
-    res.status(200)
-        .json({ msg: `brand ${brandId} has been deleted` })
+    try {
+
+        const brandId = req.params.id;
+        const result = await Brand.findByIdAndDelete(brandId)
+        if (result === null) {
+            res.status(400).json({ msg: 'No brand found' });
+            return
+        }
+        res.status(200)
+            .json({ msg: `brand ${result._id} has been deleted` })
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ msg: 'Internal server error' });
+    }
 }
 
 const handleUpdateBrandById = async (req: Request, res: Response) => {
