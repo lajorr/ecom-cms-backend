@@ -8,7 +8,9 @@ const handleGetAllBrands = async (req: Request, res: Response) => {
         .json(allBrands);
 }
 const handleCreateBrand = async (req: Request, res: Response) => {
+    console.log("adding");
     const body = req.body;
+    console.log(body);
     if (!body || !body.name) {
         res.status(400).json({ msg: 'Brand name is required' });
         return
@@ -21,6 +23,14 @@ const handleCreateBrand = async (req: Request, res: Response) => {
     res.status(201).json(
         { msg: `${newBrand.name} has been created` }
     )
+}
+
+const handleGetBrandById = async (req: Request, res: Response) => {
+    const brandId = req.params.id;
+    const brand = await Brand.findById(brandId)
+    res
+        .status(200)
+        .json(brand);
 }
 
 const handleDeleteBrandById = async (req: Request, res: Response) => {
@@ -37,5 +47,11 @@ const handleUpdateBrandById = async (req: Request, res: Response) => {
         .json({ msg: `brand ${brandId} has been updated` })
 }
 
-export { handleCreateBrand, handleDeleteBrandById, handleGetAllBrands, handleUpdateBrandById };
+export {
+    handleCreateBrand,
+    handleDeleteBrandById,
+    handleGetAllBrands,
+    handleGetBrandById,
+    handleUpdateBrandById
+};
 

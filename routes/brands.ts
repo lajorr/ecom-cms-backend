@@ -3,6 +3,7 @@ import {
     handleCreateBrand,
     handleDeleteBrandById,
     handleGetAllBrands,
+    handleGetBrandById,
     handleUpdateBrandById
 } from "../controllers/brand";
 
@@ -14,6 +15,7 @@ router.route('/')
 
 
 router.route('/:id')
+    .get(handleGetBrandById)
     .delete(handleDeleteBrandById)
     .patch(handleUpdateBrandById);
 

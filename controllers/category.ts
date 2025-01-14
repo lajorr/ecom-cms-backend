@@ -8,8 +8,17 @@ const handleGetAllCategories = async (req: Request, res: Response) => {
         .json(allCategories);
 }
 
+const handleGetCategoryById = async (req: Request, res: Response) => {
+    const categoryId = req.params.id;
+    const category = await Category.findById(categoryId)
+    res
+        .status(200)
+        .json(category);
+}
+
 const handleCreateCategory = async (req: Request, res: Response) => {
     const body = req.body;
+    console.log(body)
     if (!body || !body.name) {
         res.status(400).json({ msg: 'Category name is required' });
         return
@@ -38,4 +47,5 @@ const handleUpdateCategoryById = async (req: Request, res: Response) => {
         .json({ msg: `category ${categoryId} has been updated` })
 }
 
-export { handleCreateCategory, handleDeleteCategoryById, handleGetAllCategories, handleUpdateCategoryById };
+export { handleCreateCategory, handleDeleteCategoryById, handleGetAllCategories, handleGetCategoryById, handleUpdateCategoryById };
+

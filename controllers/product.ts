@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import Product from "../models/product";
+import Product, { IProduct } from "../models/product";
 
 const handleGetAllProducts = async (req: Request, res: Response) => {
     const allProducts = await Product.find({})
@@ -9,34 +9,32 @@ const handleGetAllProducts = async (req: Request, res: Response) => {
 }
 
 const handleCreateNewProduct = async (req: Request, res: Response) => {
-    const body = req.body;
-    if (!body ||
-        !body.name ||
-        !body.brand ||
-        !body.category ||
-        !body.image ||
-        !body.stock ||
-        !body.price
-    ) {
-        res.status(400).json({ msg: 'Some Fields are missing' });
-        return
-    }
-    const newProduct = await Product.create({
-        name: body.name,
-        brand: body.brand,
-        category: body.category,
-        image: body.image,
-        stock: body.stock,
-        price: body.price,
-        offer_price: body.offer_price,
-        is_featured: body.is_featured,
-        product_details: body.product_details
-    })
+    try {
+        const body: IProduct = req.body;
+        console.log(body);
 
-    res
-        .status(201)
-        .json(
-            { msg: `${newProduct.name} has been created` })
+        if (!body || !body.name || !body.brand || !body.category || !body.image || !body.stock || !body.price) {
+            res.status(400).json({ msg: 'Some Fields are missing' });
+            return;
+        }
+
+        const newProduct = await Product.create({
+            name: body.name,
+            brand: body.brand,
+            category: body.category,
+            image: body.image,
+            stock: body.stock,
+            price: body.price,
+            offer_price: body.offer_price || null,
+            is_featured: body.is_featured || false,
+            product_details: body.product_details || null
+        });
+
+        res.status(201).json({ msg: `${newProduct.name} has been created` });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ msg: 'Internal server error' });
+    }
 }
 
 const handleDeleteProductById = async (req: Request, res: Response) => {

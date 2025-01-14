@@ -3,6 +3,7 @@ import {
     handleCreateCategory,
     handleDeleteCategoryById,
     handleGetAllCategories,
+    handleGetCategoryById,
     handleUpdateCategoryById
 } from "../controllers/category";
 
@@ -13,6 +14,7 @@ router.route('/')
     .post(handleCreateCategory);
 
 router.route('/:id')
+    .get(handleGetCategoryById)
     .delete(handleDeleteCategoryById)
     .patch(handleUpdateCategoryById);
 

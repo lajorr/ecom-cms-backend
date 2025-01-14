@@ -1,11 +1,9 @@
-import { model, Schema } from "mongoose";
-import { IBrand } from "./brand";
-import { ICategory } from "./category";
+import { model, ObjectId, Schema } from "mongoose";
 
 export interface IProduct {
     name: string,
-    brand: IBrand,
-    category: ICategory,
+    brand: ObjectId,
+    category: ObjectId,
     image: string,
     stock: number,
     price: string,
@@ -54,7 +52,7 @@ const productSchema = new Schema<IProduct>({
         type: String,
         default: null
     }
-}, {timestamps: true});
+}, { timestamps: true });
 
 const Product = model<IProduct>('Product', productSchema);
 
